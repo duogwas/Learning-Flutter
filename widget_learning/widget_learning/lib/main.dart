@@ -18,7 +18,8 @@ class MainApp extends StatelessWidget {
         ),
         body: const Center(
           // child: Text('Hello world'),
-          child: MyWidget(true),
+          // child: MyWidget(true),
+          child: MyWidget2(false),
         ),
       )),
       debugShowCheckedModeBanner: false,
@@ -39,4 +40,37 @@ class MyWidget extends StatelessWidget {
       return const Text('State');
     }
   }
+}
+
+class MyWidget2 extends StatefulWidget {
+  final bool loading;
+  const MyWidget2(this.loading);
+
+  @override
+  State<StatefulWidget> createState() {
+    return MyWidget2State();
+  }
+}
+
+class MyWidget2State extends State<MyWidget2> {
+  late bool _localloading;
+
+  //khoi tao gia tri truoc build
+  @override
+  void initState() {
+    _localloading = widget.loading;
+  }
+
+  //build
+  @override
+  Widget build(BuildContext context) {
+    return _localloading ? const CircularProgressIndicator() : FloatingActionButton(onPressed: onPressed);
+  }
+
+  void onPressed(){
+    setState(() {
+      _localloading=true;
+    });
+  }
+  
 }
