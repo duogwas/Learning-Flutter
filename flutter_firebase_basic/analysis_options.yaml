@@ -1,0 +1,8 @@
+analyzer:
+  errors:
+    prefer_interpolation_to_compose_strings: ignore
+include: package:flutter_lints/flutter.yaml
+
+rules:
+  prefer_const_contructors: false
+  prefer_const_literials_to_create_immutable: false
