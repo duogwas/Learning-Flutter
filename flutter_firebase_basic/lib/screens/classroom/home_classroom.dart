@@ -18,10 +18,9 @@ class HomeClassroom extends StatefulWidget {
 }
 
 class _HomeClassroomState extends State<HomeClassroom> {
-  TextEditingController classnameController =  TextEditingController();
+  TextEditingController classnameController = TextEditingController();
   Stream? classroomStream;
   String? selectedValue;
-
   Stream? teacherStream;
 
   getontheload() async {
@@ -108,14 +107,20 @@ class _HomeClassroomState extends State<HomeClassroom> {
 
           if (snapshot.hasData) {
             List<DocumentSnapshot> teacherDocs = snapshot.data!.docs;
-              DocumentSnapshot teacherDoc =
-                  teacherDocs.firstWhere((doc) => doc.id == id);
-                Map<String, dynamic> teacherData =
-                    teacherDoc.data() as Map<String, dynamic>;
-                return Text('Giáo viên: ${teacherData['Name']}');
-              } else {
-                return const Text('No teacher found with this ID');
-              }
+            DocumentSnapshot teacherDoc =
+                teacherDocs.firstWhere((doc) => doc.id == id);
+            Map<String, dynamic> teacherData =
+                teacherDoc.data() as Map<String, dynamic>;
+            return Text(
+              'Giáo viên: ${teacherData['Name']}',
+              style: const TextStyle(
+                  color: Colors.orange,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            );
+          } else {
+            return const Text('No teacher found with this ID');
+          }
         });
   }
 
@@ -181,6 +186,7 @@ class _HomeClassroomState extends State<HomeClassroom> {
                                           color: Colors.red))
                                 ],
                               ),
+                              const SizedBox(height: 10.0),
                               getTeacherName(ds['Teacher_Id']),
                               // Text(
                               //   "Giáo viên: " + ds['Teacher_Id'],
@@ -230,7 +236,7 @@ class _HomeClassroomState extends State<HomeClassroom> {
         ),
       ),
       bottomNavigationBar: const CustomBottomNavBar(
-        selectedMenu: MenuState.home,
+        selectedMenu: MenuState.classroom,
       ),
     );
   }

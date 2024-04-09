@@ -26,7 +26,7 @@ class ClassroomMethods {
         .delete();
   }
 
-  Stream<QuerySnapshot> getTeacherName(String id) {
+  Stream<QuerySnapshot> getTeacherName(String idTeacher) {
     return FirebaseFirestore.instance.collection('Teacher').snapshots();
   }
 }

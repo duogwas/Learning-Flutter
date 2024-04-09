@@ -39,7 +39,7 @@ class CustomBottomNavBar extends StatelessWidget {
               },
               icon: SvgPicture.asset(
                 "assets/icons/Shop Icon.svg",
-                colorFilter: selectedMenu == MenuState.home
+                colorFilter: selectedMenu == MenuState.classroom
                     ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
                     : const ColorFilter.mode(
                         inActiveIconColor, BlendMode.srcIn),
@@ -58,7 +58,7 @@ class CustomBottomNavBar extends StatelessWidget {
               },
               icon: SvgPicture.asset(
                 "assets/icons/User Icon.svg",
-                colorFilter: selectedMenu == MenuState.profile
+                colorFilter: selectedMenu == MenuState.teacher
                     ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
                     : const ColorFilter.mode(
                         inActiveIconColor, BlendMode.srcIn),
