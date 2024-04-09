@@ -62,7 +62,7 @@ class _AddStudentState extends State<AddStudent> {
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'Năm sinh',
+              'Ngày sinh',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20.0,
@@ -80,7 +80,7 @@ class _AddStudentState extends State<AddStudent> {
                     contentPadding: EdgeInsets.only(top: 14.0),
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.calendar_today),
-                    hintText: '10-04-2001',
+                    hintText: 'dd-MM-yyyy',
                   ),
                   readOnly: true,
                   onTap: () {

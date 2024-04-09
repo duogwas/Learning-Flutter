@@ -5,7 +5,6 @@ import 'package:flutter_firebase_basic/components/custom_bottom_nav_bar.dart';
 import 'package:flutter_firebase_basic/components/enums.dart';
 import 'package:flutter_firebase_basic/screens/student/add_student.dart';
 import 'package:flutter_firebase_basic/services/student.dart';
-import 'package:intl/intl.dart';
 
 class HomeStudent extends StatefulWidget {
   static String routeName = '/student';
