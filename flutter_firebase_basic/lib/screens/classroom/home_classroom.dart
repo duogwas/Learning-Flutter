@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_basic/screens/classroom/add_classroom.dart';
+import 'package:flutter_firebase_basic/screens/student/home_student.dart';
 import 'package:flutter_firebase_basic/services/classroom.dart';
 import 'package:flutter_firebase_basic/services/teacher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -79,14 +80,6 @@ class _HomeClassroomState extends State<HomeClassroom> {
                 setState(() {
                   selectedValue = value;
                 });
-                Fluttertoast.showToast(
-                    msg: value,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.TOP,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.blue,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
               },
             ),
           );
@@ -158,6 +151,23 @@ class _HomeClassroomState extends State<HomeClassroom> {
                                   ),
                                   const Spacer(),
                                   GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomeStudent(
+                                              classroomName: ds['Name'],
+                                              classroomId: ds['Id']),
+                                        ),
+                                      );
+                                    },
+                                    child: const Icon(
+                                      Icons.add_box,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5.0),
+                                  GestureDetector(
                                       onTap: () {
                                         selectedValue = ds['Teacher_Id'];
                                         classnameController.text = ds['Name'];
@@ -167,23 +177,9 @@ class _HomeClassroomState extends State<HomeClassroom> {
                                           color: Colors.orange)),
                                   const SizedBox(width: 5.0),
                                   GestureDetector(
-                                      onTap: () async {
-                                        // await DatabaseMethods()
-                                        //     .deleteEmployeeDetail(ds['Id'])
-                                        //     .then((value) {
-                                        //   Fluttertoast.showToast(
-                                        //       msg:
-                                        //           "Employee has been deleted successfully",
-                                        //       toastLength: Toast.LENGTH_SHORT,
-                                        //       gravity: ToastGravity.TOP,
-                                        //       timeInSecForIosWeb: 1,
-                                        //       backgroundColor: Colors.green,
-                                        //       textColor: Colors.white,
-                                        //       fontSize: 16.0);
-                                        // });
-                                      },
+                                      onTap: () {},
                                       child: const Icon(Icons.delete,
-                                          color: Colors.red))
+                                          color: Colors.red)),
                                 ],
                               ),
                               const SizedBox(height: 10.0),

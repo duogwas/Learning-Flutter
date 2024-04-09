@@ -119,7 +119,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
           child: const Icon(Icons.add)),
       appBar: AppBar(
         title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               'DANH SÁCH GIÁO VIÊN',
