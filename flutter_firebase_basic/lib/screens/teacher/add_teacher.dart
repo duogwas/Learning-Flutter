@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_basic/screens/home.dart';
-import 'package:flutter_firebase_basic/services/database.dart';
+import 'package:flutter_firebase_basic/screens/teacher/home_teacher.dart';
+import 'package:flutter_firebase_basic/services/teacher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_string/random_string.dart';
 
-class Employee extends StatefulWidget {
-  const Employee({super.key});
+class AddTeacher extends StatefulWidget {
+  const AddTeacher({super.key});
 
   @override
-  State<Employee> createState() => _EmployeeState();
+  State<AddTeacher> createState() => _AddTeacherState();
 }
 
-class _EmployeeState extends State<Employee> {
+class _AddTeacherState extends State<AddTeacher> {
   TextEditingController nameController = new TextEditingController();
   TextEditingController ageController = new TextEditingController();
   TextEditingController locationController = new TextEditingController();
@@ -24,16 +24,9 @@ class _EmployeeState extends State<Employee> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Employee ',
+              'THÔNG TIN GIÁO VIÊN',
               style: TextStyle(
                   color: Colors.blue,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Form',
-              style: TextStyle(
-                  color: Colors.orange,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold),
             ),
@@ -46,7 +39,7 @@ class _EmployeeState extends State<Employee> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Name',
+              'Họ và tên',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20.0,
@@ -60,12 +53,12 @@ class _EmployeeState extends State<Employee> {
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 controller: nameController,
-                decoration: InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(border: InputBorder.none),
               ),
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'Age',
+              'Năm sinh',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20.0,
@@ -79,12 +72,12 @@ class _EmployeeState extends State<Employee> {
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 controller: ageController,
-                decoration: InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(border: InputBorder.none),
               ),
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'Location',
+              'Địa chỉ',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20.0,
@@ -98,7 +91,7 @@ class _EmployeeState extends State<Employee> {
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 controller: locationController,
-                decoration: InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(border: InputBorder.none),
               ),
             ),
             const SizedBox(height: 30.0),
@@ -106,18 +99,17 @@ class _EmployeeState extends State<Employee> {
               child: ElevatedButton(
                   onPressed: () async {
                     String id = randomAlphaNumeric(10);
-                    Map<String, dynamic> employeeInfoMap = {
+                    Map<String, dynamic> teacherInfoMap = {
                       'Name': nameController.text,
                       'Age': ageController.text,
                       'Id': id,
                       'Location': locationController.text
                     };
-                    await DatabaseMethods()
-                        .addEmployeeDetails(employeeInfoMap, id)
-                        .then((value) {
+                    try {
+                      await TeacherMethods()
+                          .AddTeacher(teacherInfoMap, id);
                       Fluttertoast.showToast(
-                          msg:
-                              "Employee Details has been uploaded successfully",
+                          msg: "Thêm giáo viên thành công",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.TOP,
                           timeInSecForIosWeb: 1,
@@ -125,11 +117,27 @@ class _EmployeeState extends State<Employee> {
                           textColor: Colors.white,
                           fontSize: 16.0);
 
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
-                    });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeTeacher()));
+                    } catch (e) {
+                      Fluttertoast.showToast(
+                          msg: "Thêm giáo viên thất bại",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.TOP,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeTeacher()));
+                    }
                   },
-                  child: const Text('Add',
+                  child: const Text('Thêm giáo viên',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold))),
             )

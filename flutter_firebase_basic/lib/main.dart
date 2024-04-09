@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_basic/screens/home.dart';
+import 'package:flutter_firebase_basic/components/routes.dart';
+import 'package:flutter_firebase_basic/screens/classroom/home_classroom.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +22,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      // home: HomeClassroom(),
+      initialRoute: HomeClassroom.routeName,
+        //initialRoute: SignInScreen.routeName,
+        //initialRoute: ProfileScreen.routeName,
+        //initialRoute: HomeScreen.routeName,
+      routes: routes,
     );
   }
 }
