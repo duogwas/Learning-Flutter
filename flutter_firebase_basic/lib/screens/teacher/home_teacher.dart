@@ -16,13 +16,13 @@ class HomeTeacher extends StatefulWidget {
 }
 
 class _HomeTeacherState extends State<HomeTeacher> {
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController ageController = new TextEditingController();
-  TextEditingController locationController = new TextEditingController();
-  Stream? EmployeeStream;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  Stream? teacherStream;
 
   getontheload() async {
-    EmployeeStream = await TeacherMethods().getTeacherDetail();
+    teacherStream = await TeacherMethods().getTeacherDetail();
     setState(() {});
   }
 
@@ -32,9 +32,9 @@ class _HomeTeacherState extends State<HomeTeacher> {
     super.initState();
   }
 
-  Widget allEmployeeDetails() {
+  Widget getAllTeacher() {
     return StreamBuilder(
-        stream: EmployeeStream,
+        stream: teacherStream,
         builder: (context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? ListView.builder(
@@ -47,7 +47,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
                         elevation: 5.0,
                         borderRadius: BorderRadius.circular(10),
                         child: Container(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -71,28 +71,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
                                         ageController.text = ds['Age'];
                                         locationController.text =
                                             ds['Location'];
-                                        try {
-                                          EditEmployeeDetail(ds['Id']);
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  "Employee has been updated successfully",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.TOP,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.green,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0);
-                                        } catch (e) {
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  "Employee has been updated failed",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.TOP,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.red,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0);
-                                        }
+                                        editTeacher(ds['Id']);
                                       },
                                       child: const Icon(Icons.edit,
                                           color: Colors.orange)),
@@ -146,8 +125,8 @@ class _HomeTeacherState extends State<HomeTeacher> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddTeacher()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddTeacher()));
           },
           child: const Icon(Icons.add)),
       appBar: AppBar(
@@ -165,10 +144,10 @@ class _HomeTeacherState extends State<HomeTeacher> {
         ),
       ),
       body: Container(
-          margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+          margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
           child: Column(
             children: [
-              Expanded(child: allEmployeeDetails()),
+              Expanded(child: getAllTeacher()),
             ],
           )),
       bottomNavigationBar: const CustomBottomNavBar(
@@ -177,11 +156,10 @@ class _HomeTeacherState extends State<HomeTeacher> {
     );
   }
 
-  Future EditEmployeeDetail(String id) => showDialog(
+  Future editTeacher(String id) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           content: SingleChildScrollView(
-              // child: Container(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -192,18 +170,11 @@ class _HomeTeacherState extends State<HomeTeacher> {
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.cancel)),
-                  const SizedBox(width: 60.0),
+                  const SizedBox(width: 25.0),
                   const Text(
-                    "Edit ",
+                    "SỬA THÔNG TIN ",
                     style: TextStyle(
                         color: Colors.blue,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const Text(
-                    "Details",
-                    style: TextStyle(
-                        color: Colors.orange,
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold),
                   )
@@ -211,7 +182,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
               ),
               const SizedBox(height: 20.0),
               const Text(
-                'Name',
+                'Họ và tên',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
@@ -230,7 +201,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
               ),
               const SizedBox(height: 20.0),
               const Text(
-                'Age',
+                'Năm sinh',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
@@ -249,7 +220,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
               ),
               const SizedBox(height: 20.0),
               const Text(
-                'Location',
+                'Địa chỉ',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
@@ -276,16 +247,31 @@ class _HomeTeacherState extends State<HomeTeacher> {
                           "Age": ageController.text,
                           "Location": locationController.text
                         };
-                        await TeacherMethods()
-                            .updateTeacher(id, updateInfor)
-                            .then((value) {
+                        try {
+                          await TeacherMethods().updateTeacher(id, updateInfor);
+                          Fluttertoast.showToast(
+                              msg: "Cập nhật thành công",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                           Navigator.pop(context);
-                        });
+                        } catch (e) {
+                          Fluttertoast.showToast(
+                              msg: "Cập nhật thất bại",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
                       },
                       child: const Text('Update')))
             ],
           )),
         ),
-        // )
       );
 }

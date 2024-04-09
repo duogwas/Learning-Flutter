@@ -12,9 +12,9 @@ class AddTeacher extends StatefulWidget {
 }
 
 class _AddTeacherState extends State<AddTeacher> {
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController ageController = new TextEditingController();
-  TextEditingController locationController = new TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +106,9 @@ class _AddTeacherState extends State<AddTeacher> {
                       'Location': locationController.text
                     };
                     try {
-                      await TeacherMethods()
-                          .AddTeacher(teacherInfoMap, id);
+                      await TeacherMethods().addTeacher(teacherInfoMap, id);
                       Fluttertoast.showToast(
-                          msg: "Thêm giáo viên thành công",
+                          msg: "Thêm thành công",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.TOP,
                           timeInSecForIosWeb: 1,
@@ -123,7 +122,7 @@ class _AddTeacherState extends State<AddTeacher> {
                               builder: (context) => const HomeTeacher()));
                     } catch (e) {
                       Fluttertoast.showToast(
-                          msg: "Thêm giáo viên thất bại",
+                          msg: "Thêm thất bại",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.TOP,
                           timeInSecForIosWeb: 1,
@@ -131,10 +130,7 @@ class _AddTeacherState extends State<AddTeacher> {
                           textColor: Colors.white,
                           fontSize: 16.0);
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeTeacher()));
+                      Navigator.pushNamed(context, HomeTeacher.routeName);
                     }
                   },
                   child: const Text('Thêm giáo viên',

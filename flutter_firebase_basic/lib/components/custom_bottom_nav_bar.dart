@@ -22,7 +22,7 @@ class CustomBottomNavBar extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
           boxShadow: [
             BoxShadow(
                 offset: const Offset(0, -15),
@@ -41,24 +41,17 @@ class CustomBottomNavBar extends StatelessWidget {
                 "assets/icons/Shop Icon.svg",
                 colorFilter: selectedMenu == MenuState.home
                     ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
-                    : const ColorFilter.mode(inActiveIconColor, BlendMode.srcIn),
+                    : const ColorFilter.mode(
+                        inActiveIconColor, BlendMode.srcIn),
               )),
-          IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                "assets/icons/Heart Icon.svg",
-                colorFilter: selectedMenu == MenuState.favourite
-                    ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
-                    : const ColorFilter.mode(inActiveIconColor, BlendMode.srcIn),
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                "assets/icons/Chat bubble Icon.svg",
-                colorFilter: selectedMenu == MenuState.message
-                    ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
-                    : const ColorFilter.mode(inActiveIconColor, BlendMode.srcIn),
-              )),
+          // IconButton(
+          //     onPressed: () {},
+          //     icon: SvgPicture.asset(
+          //       "assets/icons/Heart Icon.svg",
+          //       colorFilter: selectedMenu == MenuState.favourite
+          //           ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
+          //           : const ColorFilter.mode(inActiveIconColor, BlendMode.srcIn),
+          //     )),
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, HomeTeacher.routeName);
@@ -67,7 +60,8 @@ class CustomBottomNavBar extends StatelessWidget {
                 "assets/icons/User Icon.svg",
                 colorFilter: selectedMenu == MenuState.profile
                     ? const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn)
-                    : const ColorFilter.mode(inActiveIconColor, BlendMode.srcIn),
+                    : const ColorFilter.mode(
+                        inActiveIconColor, BlendMode.srcIn),
               ))
         ],
       )),

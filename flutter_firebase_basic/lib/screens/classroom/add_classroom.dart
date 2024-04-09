@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_basic/screens/classroom/home_classroom.dart';
 import 'package:flutter_firebase_basic/services/classroom.dart';
@@ -14,12 +13,12 @@ class AddClassroom extends StatefulWidget {
 }
 
 class _AddClassroomState extends State<AddClassroom> {
-  TextEditingController classnameController = new TextEditingController();
+  TextEditingController classnameController =  TextEditingController();
   String? selectedValue;
-  Stream? TeacherStream;
+  Stream? teacherStream;
 
   getontheload() async {
-    TeacherStream = await TeacherMethods().getTeacherDetail();
+    teacherStream = await TeacherMethods().getTeacherDetail();
     setState(() {});
   }
 
@@ -31,10 +30,10 @@ class _AddClassroomState extends State<AddClassroom> {
 
   Widget listEmployee() {
     return StreamBuilder(
-        stream: TeacherStream,
+        stream: teacherStream,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           List<DropdownMenuItem> teacherItems = [];
           if (!snapshot.hasData) {

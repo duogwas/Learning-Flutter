@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TeacherMethods {
-  Future AddTeacher(
+  Future addTeacher(
       Map<String, dynamic> teacherInfoMap, String id) async {
     return await FirebaseFirestore.instance
         .collection('Teacher')

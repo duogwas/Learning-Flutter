@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_basic/screens/classroom/add_classroom.dart';
 import 'package:flutter_firebase_basic/services/classroom.dart';
@@ -20,16 +18,15 @@ class HomeClassroom extends StatefulWidget {
 }
 
 class _HomeClassroomState extends State<HomeClassroom> {
-  TextEditingController classnameController = new TextEditingController();
-  Stream? ClassroomStream;
+  TextEditingController classnameController =  TextEditingController();
+  Stream? classroomStream;
   String? selectedValue;
-  String? beforeSelectedValue;
 
-  Stream? TeacherStream;
+  Stream? teacherStream;
 
   getontheload() async {
-    ClassroomStream = await ClassroomMethods().getClassroomDetail();
-    TeacherStream = await TeacherMethods().getTeacherDetail();
+    classroomStream = await ClassroomMethods().getClassroomDetail();
+    teacherStream = await TeacherMethods().getTeacherDetail();
     setState(() {});
   }
 
@@ -41,10 +38,10 @@ class _HomeClassroomState extends State<HomeClassroom> {
 
   Widget getListTeacher(BuildContext context, StateSetter setState) {
     return StreamBuilder(
-        stream: TeacherStream,
+        stream: teacherStream,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           List<DropdownMenuItem> teacherItems = [];
           if (!snapshot.hasData) {
@@ -106,34 +103,25 @@ class _HomeClassroomState extends State<HomeClassroom> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
 
           if (snapshot.hasData) {
             List<DocumentSnapshot> teacherDocs = snapshot.data!.docs;
-            if (teacherDocs != null) {
               DocumentSnapshot teacherDoc =
                   teacherDocs.firstWhere((doc) => doc.id == id);
-
-              if (teacherDoc != null) {
                 Map<String, dynamic> teacherData =
                     teacherDoc.data() as Map<String, dynamic>;
                 return Text('Giáo viên: ${teacherData['Name']}');
               } else {
-                return Text('No teacher found with this ID');
+                return const Text('No teacher found with this ID');
               }
-            } else {
-              return Text('No data found');
-            }
-          } else {
-            return Text('Snapshot no data found');
-          }
         });
   }
 
   Widget getListClassroom() {
     return StreamBuilder(
-        stream: ClassroomStream,
+        stream: classroomStream,
         builder: (context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? ListView.builder(
@@ -265,12 +253,12 @@ class _HomeClassroomState extends State<HomeClassroom> {
                             Navigator.pop(context);
                           },
                           child: const Icon(Icons.cancel)),
-                      const SizedBox(width: 20.0),
+                      const SizedBox(width: 24.0),
                       const Text(
                         "SỬA THÔNG TIN",
                         style: TextStyle(
                             color: Colors.blue,
-                            fontSize: 20.0,
+                            fontSize: 24.0,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
