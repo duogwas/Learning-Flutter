@@ -8,11 +8,24 @@ class StudentMethods {
         .set(studentMap);
   }
 
-Future<Stream<QuerySnapshot>> getStudentDetail(String idClass) async {
-  return FirebaseFirestore.instance
-    .collection('Student')
-    .where('Class_Id', isEqualTo: idClass)
-    .snapshots();
-}
+  Future<Stream<QuerySnapshot>> getStudentDetail(String idClass) async {
+    return FirebaseFirestore.instance
+        .collection('Student')
+        .where('Class_Id', isEqualTo: idClass)
+        .snapshots();
+  }
 
+  Future updateStudent(String id, Map<String, dynamic> updateInfor) async {
+    return await FirebaseFirestore.instance
+        .collection('Student')
+        .doc(id)
+        .update(updateInfor);
+  }
+
+  Future deleteStudent(String id) async {
+    return await FirebaseFirestore.instance
+        .collection('Student')
+        .doc(id)
+        .delete();
+  }
 }

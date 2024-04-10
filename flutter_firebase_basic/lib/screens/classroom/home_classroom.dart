@@ -213,7 +213,7 @@ class _HomeClassroomState extends State<HomeClassroom> {
       ),
       appBar: AppBar(
         title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'DANH SÁCH LỚP HỌC',

@@ -257,7 +257,7 @@ class _HomeTeacherState extends State<HomeTeacher> {
                               fontSize: 16.0);
                         }
                       },
-                      child: const Text('Update')))
+                      child: const Text('Cập nhật')))
             ],
           )),
         ),
